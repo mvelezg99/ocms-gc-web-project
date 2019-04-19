@@ -9,6 +9,7 @@ To explore the project you should follow these steps:
 * Open XAMPP and start Apache and MySql modules.
 * Go to this link http://localhost/phpmyadmin/
 * Import/Execute this *database.sql* SQL file : 
+
 https://github.com/mvelezg99/ocms-gc-web-project/blob/master/backend/database/database.sql
 * Open CMD in 'backend' directory:
 ```
