@@ -13,7 +13,7 @@ To explore the project you should follow these steps:
 ```
 cd Documents/Github/ocms-gc-mern/backend
 ```
-**Default directory**
+*Default directory*
 * Install all necessary dependencies:
 ```
 npm i
