@@ -9,7 +9,7 @@
  * 
  */
 
-//----------------------------------------- DOM handling -----------------------------------------------------//
+//----------------------------------------- DOM HANDLING -----------------------------------------------------//
 /**
  * Functions to handle the HTML elements of "asignaturas.html".
  */
@@ -175,7 +175,7 @@ function validateNewForm() {
 }
 
 
-//------------------------------------------- Frontend Logic -------------------------------------------------//
+//------------------------------------------- FRONTEND LOGIC -------------------------------------------------//
 /**
  * Functions to handle the logic of the events of "asignaturas.html".
  */
@@ -329,7 +329,7 @@ function clearFields() {
 
 }
 
-//------------------------------------- Backend/Frontend Interaction -----------------------------------------//
+//------------------------------------- BACKEND/FRONTEND INTERACTION -----------------------------------------//
 /**
  * Functions to manage the connection and interaction between frontend and backend of 'asignaturas' section.
  */

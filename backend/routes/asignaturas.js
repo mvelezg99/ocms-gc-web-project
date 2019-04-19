@@ -1,8 +1,15 @@
 /**
+ * @file Backend Gestión Asignaturas
+ * @author Miguel Ángel Vélez <https://github.com/mvelezg99>
+ * @version 0.1
+ * @license MIT
+ * 
+ * @description Lógica escrita en javascript para el manejo del servidor y la base de datos del
+ * proyecto OCMS Gestión curricular en el módulo de Gestión de Asignaturas.
  * 
  */
 
-//----------------------------------------------------------------------------------------------------------//
+//----------------------------------- DATABASE/SERVER HANDLE -------------------------------------------------//
 var express = require('express')
 var mysql = require('mysql')
 
@@ -17,7 +24,7 @@ var connection = mysql.createConnection({
 connection.connect((error) => {
     if (error) throw error
 })
-//----------------------------------------------------------------------------------------------------------//
+//-------------------------------------- PETITIONS HANDLE ----------------------------------------------------//
 
 
 router.get('/asignaturas', (req, res) => {
