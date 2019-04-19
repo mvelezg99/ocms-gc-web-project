@@ -8,12 +8,12 @@ To explore the project you should follow these steps:
 * Install [XAMPP](https://www.apachefriends.org/es/index.html).
 * Open XAMPP and start Apache and MySql modules.
 * Go to this link http://localhost/phpmyadmin/
-* Import/Execute this *database.sql* SQL file : http://
+* Import/Execute this *database.sql* SQL file : https://github.com/mvelezg99/ocms-gc-mern/blob/master/backend/database/database.sql
 * Open CMD in 'backend' directory:
 ```
 cd Documents/Github/ocms-gc-mern/backend
 ```
-**Default directory**
+*Default directory*
 * Install all necessary dependencies:
 ```
 npm i
