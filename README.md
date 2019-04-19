@@ -13,7 +13,7 @@ To explore the project you should follow these steps:
 https://github.com/mvelezg99/ocms-gc-web-project/blob/master/backend/database/database.sql
 * Open CMD in 'backend' directory:
 ```
-cd Documents/Github/ocms-gc-mern/backend
+cd Documents/Github/ocms-gc-web-project/backend
 ```
 *Default directory*
 * Install all necessary dependencies:
