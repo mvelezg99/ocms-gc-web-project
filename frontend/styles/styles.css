@@ -1,0 +1,42 @@
+/**
+* Styles for "index.html" and "asignaturas.html"
+**/
+
+/*-------------------------------------------- GENERAL -------------------------------------------------------*/
+.site-footer{
+    background-color: #343A40;
+    color: #fff;
+    margin-top: 30px;
+    padding-top: 30px;
+}
+
+.bottom-footer{
+    border-top: 1px solid #b2b2b2;
+    margin-top: 10px;
+    padding-top: 10px;
+    color: #b2b2b2;
+}
+
+p{
+    margin: 35px;
+}
+
+/*---------------------------------------------- TABLES ------------------------------------------------------*/
+.table-asignatura{
+    margin: 35px;
+    overflow-x: auto;
+}
+.table td {
+    text-align: center;   
+ }
+.table th {
+    text-align: center;   
+}
+
+/*-------------------------------------------- GENERAL -------------------------------------------------------*/
+.alert{
+    display: none;
+    opacity: 1;
+    -webkit-transition: opacity 1000ms linear;
+    transition: opacity 1000ms linear;
+ }

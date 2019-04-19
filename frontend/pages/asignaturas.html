@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="icon" href="../src/ocms-icon.png">
+    <title>Gestionar asignaturas</title>
+</head>
+
+<body>
+<!------------------------------------------------- HEADER ---------------------------------------------------->
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand" href="../index.html">
+            <img src="../src/ocms-image.png" width="" height="30" class="d-inline-block align-top" alt="">
+        </a>
+        <a class="navbar-brand" href="../index.html">
+            <div><strong>Gestión Curricular</strong></div>
+        </a>
+
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Funcionalidades
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="asignaturas.html">Asignaturas</a>
+            </div>
+        </div>
+    </nav>
+
+<!------------------------------------------------- TITLE ----------------------------------------------------->
+    <p class="display-4">Gestionar asignaturas</p>
+    <hr>
+
+<!---------------------------------------------- CRUD OPTIONS ------------------------------------------------->
+    <div class="table-asignatura">
+
+        <button class="btn btn-outline-success" id="btn-crear" onclick="newCollapse()">
+            Crear nueva
+        </button>
+        <button class="btn btn-outline-info" id="btn-modificar" onclick="editCollapse()">
+            Modificar
+        </button>
+        <button class="btn btn-outline-danger" id="btn-eliminar" onclick="deleteCollapse()">
+            Eliminar
+        </button>
+        <br>
+        <br>
+        <div class="alert alert-success alert-dismissible fade in show" role="alert" id="alertSuccess"
+            style="opacity: 0">
+            <strong>Éxito!</strong> Operación exitosa.
+        </div>
+
+        <div class="alert alert-danger alert-dismissible fade in show" role="alert" id="alertDanger" style="opacity: 0">
+            <strong>Error!</strong> Operación inválida.
+        </div>
+
+        <div class="alert alert-warning alert-dismissible fade in show" role="alert" id="alertWarning"
+            style="opacity: 0">
+            <strong>Cuidado!</strong> Debes rellenear todos los campos.
+        </div>
+
+<!------------------------------------------------ CRUD FORMS ------------------------------------------------->        </p>
+        <!-- Formulario creación -->
+        <div class="collapse" id="collapseNew">
+            <div class="card card-body">
+                <form autocomplete="off">
+                    <label>
+                        <h3>Nueva asignatura</h3>
+                    </label>
+                    <hr>
+                    <div class="form-group">
+                        <label>Identificación</label>
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                            <input type="text" class="form-control" placeholder="Código" id="inputID" required>
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control" placeholder="Nombre" id="inputNombre" required>
+                        </div>
+                    </div>
+                    <br>
+
+                    <div class="form-group">
+                        <label>Información general</label>
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                            <input type="number" class="form-control" placeholder="Número créditos" id="inputCreditos"
+                                min="0" step="1" required>
+                        </div>
+                        <div class="col">
+                            <input type="number" class="form-control" placeholder="Nivel" id="inputNivel" min="0"
+                                max="10" step="1" required>
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control" placeholder="Tipo" id="inputTipo" required>
+                        </div>
+                    </div>
+                    <br>
+
+                    <div class="form-group">
+                        <label>Intensidad</label>
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                            <input type="number" class="form-control" placeholder="Horas directas" id="inputHorasD"
+                                min="0" step="1" required>
+                        </div>
+                        <div class="col">
+                            <input type="number" class="form-control" placeholder="Horas independientes"
+                                id="inputHorasI" min="0" step="1" required>
+                        </div>
+                    </div>
+
+                    <br>
+                    <div class="form-group">
+                        <label>Descripción</label>
+                        <textarea class="form-control" id="inputDescripcion" required></textarea>
+                    </div>
+
+            </div>
+            <!-- /Formulario creación -->
+            
+            </form>
+            <button class="btn btn-success btn-block" id="submitCrear" onclick="addAsignatura()">Crear</button>
+            
+        </div>
+
+        <!-- Formulario modificar -->
+        <div class="collapse" id="collapseMod">
+            <div class="card card-body">
+                <form autocomplete="off">
+                    <label>
+                        <h3>Modificar asignatura</h3>
+                    </label>
+                    <hr>
+                    <div class="form-group">
+                        <label>Identificación</label>
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                            <input type="text" class="form-control" placeholder="Código" id="editID" required>
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control" placeholder="Nombre" id="editNombre" required>
+                        </div>
+                    </div>
+                    <br>
+
+                    <div class="form-group">
+                        <label>Información general</label>
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                            <input type="number" class="form-control" placeholder="Número créditos" id="editCreditos"
+                                min="0" step="1" required>
+                        </div>
+                        <div class="col">
+                            <input type="number" class="form-control" placeholder="Nivel" id="editNivel" min="0"
+                                max="10" step="1" required>
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control" placeholder="Tipo" id="editTipo" required>
+                        </div>
+                    </div>
+                    <br>
+
+                    <div class="form-group">
+                        <label>Intensidad</label>
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                            <input type="number" class="form-control" placeholder="Horas directas" id="editHorasD"
+                                min="0" step="1" required>
+                        </div>
+                        <div class="col">
+                            <input type="number" class="form-control" placeholder="Horas independientes" id="editHorasI"
+                                min="0" step="1" required>
+                        </div>
+                    </div>
+
+                    <br>
+                    <div class="form-group">
+                        <label>Descripción</label>
+                        <textarea class="form-control" id="editDescripcion" required></textarea>
+                    </div>
+            </div>
+            <!-- /Formulario modificar -->
+            
+            </form>
+            <button class="btn btn-info btn-block" id="submitModificar" onclick="updateAsignatura()">Modificar</button>
+            
+
+        </div>
+
+        <!-- Formulario eliminar -->
+        <div class="collapse" id="collapseDel">
+            <div class="card card-body">
+                <form autocomplete="off">
+                    <label>
+                        <h3>Eliminar Asignatura</h3>
+                    </label>
+                    <hr>
+                    <div class="form-group">
+                        <label>Identificación</label>
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                            <input type="text" class="form-control" placeholder="Código" id="deleteID" required>
+                        </div>
+                    </div>
+
+            </div>
+            </form>
+            <button class="btn btn-danger btn-block" id="submitEliminar"
+                onclick="removeAsignatura(document.getElementById('deleteID').value)">Eliminar</button>
+            
+        </div>
+
+        <!-- /Formulario eliminar -->
+    </div>
+
+<!--------------------------------------------- ASIGNATURAS TABLE --------------------------------------------->
+    <div id="asignaturasList"></div>
+
+    <!-- Tabla asignaturas -->
+    <div class="table-asignatura">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Código</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Créditos</th>
+                    <th scope="col">Nivel</th>
+                    <th scope="col">Tipo</th>
+                    <th scope="col">Horas directas</th>
+                    <th scope="col">Horas independientes</th>
+                    <th scope="col">Descripcion</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="asignaturasTable">
+            </tbody>
+        </table>
+    </div>
+    <!-- /Tabla asignaturas -->
+
+
+<!------------------------------------------------- FOOTER ----------------------------------------------------->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5">
+                    <h4><a href="https://www.udem.edu.co/">
+                            <img src="../src/240px-Escudo_Universidad_de_Medellin.svg.png" height="50"></a>
+                        Universidad de Medellín</h4>
+                    <address>
+                        Carrera 87 N° 30 - 65 <br>
+                        Medellín <br>
+                        Colombia <br>
+                        (57)(4)3405555
+                    </address>
+                </div>
+            </div>
+            <div class="bottom-footer">
+                <div class="col-md-5">© Copyright 2012 ® Todos los Derechos Reservados</div>
+            </div>
+        </div>
+    </footer>
+
+<!------------------------------------------------- SCRIPTS ---------------------------------------------------->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="../scripts/asignaturas.js"></script>
+
+</body>
+
+</html>

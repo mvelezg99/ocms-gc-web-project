@@ -1,0 +1,106 @@
+{
+	"info": {
+		"_postman_id": "f8f6c640-e94e-49e9-9bc8-276290432ba6",
+		"name": "OCMS GC - API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET Asignaturas",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Asignatura",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"codigo\": \"C30UTYC21\",\n        \"nombre\": \"Calculo Diferencial\",\n        \"creditos\": 7,\n        \"nivel\": 2,\n        \"tipo\": \"Ciencias basicas\",\n        \"horasDirectas\": 15,\n        \"horasIndependientes\": 30,\n        \"descripcion\": \"Calculos\"\n    }"
+				},
+				"url": {
+					"raw": "localhost:3000/asignaturas",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"asignaturas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT Asignatura",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"codigo\": \"C30UTYC26\",\n        \"nombre\": \"Calculo Diferencial\",\n        \"creditos\": 6,\n        \"nivel\": 2,\n        \"tipo\": \"Ciencias basicas\",\n        \"horasDirectas\": 16,\n        \"horasIndependientes\": 32,\n        \"descripcion\": \"Calculos\"\n    }"
+				},
+				"url": {
+					"raw": "localhost:3000/asignaturas/C30UTYC21",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"asignaturas",
+						"C30UTYC21"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Asignatura",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:3000/asignaturas/C30UTYC26",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"asignaturas",
+						"C30UTYC26"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
