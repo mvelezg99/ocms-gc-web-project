@@ -16,6 +16,9 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
 
+DROP USER IF EXISTS 'ocms_admin'@'localhost';
+DROP DATABASE IF EXISTS ocms;
+
 --
 -- Base de datos: `ocms`
 --
@@ -98,10 +101,32 @@ INSERT INTO `asignaciones` (`rol`, `usuario`, `unidad`, `semestreInicio`, `semes
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `planes`
+--
+
+CREATE TABLE IF NOT EXISTS `planes` (
+  `codigo` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
+  `nombre` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
+  `programa` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
+  `numeroAcuerdo` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
+  `semestreInicio` int(6) NOT NULL,
+  `semestreVigencia` int(6) NOT NULL,
+  `rutaActa` varchar(300) COLLATE utf8_spanish_ci NOT NULL,
+  `rutaImagen` varchar(300) COLLATE utf8_spanish_ci NOT NULL,
+  PRIMARY KEY (`codigo`),
+  KEY `fk_Planes_Programa` (`programa`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `asignaturas`
 --
 
 CREATE TABLE IF NOT EXISTS `asignaturas` (
+  `programa` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
+  `uoc` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
+  `plan` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
   `codigo` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
   `nombre` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
   `creditos` int(6) NOT NULL,
@@ -110,6 +135,46 @@ CREATE TABLE IF NOT EXISTS `asignaturas` (
   `horasDirectas` int(6) DEFAULT NULL,
   `horasIndependientes` int(6) DEFAULT NULL,
   `descripcion` varchar(300) COLLATE utf8_spanish_ci DEFAULT NULL,
+  PRIMARY KEY (`codigo`),
+  KEY `fk_Asignaturas_UOC` (`uoc`),
+  KEY `fk_Asignaturas_Plan` (`plan`),
+  KEY `fk_Asignaturas_Programa` (`programa`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `asignaturasPrerrequisitos`
+--
+
+CREATE TABLE IF NOT EXISTS `asignaturasPrerrequisitos` (
+  `id` int COLLATE utf8_spanish_ci NOT NULL AUTO_INCREMENT,
+  `asignatura` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
+  `prerrequisito` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
+  PRIMARY KEY(`id`),
+  FOREIGN KEY (`asignatura`) REFERENCES `asignaturas` (`codigo`) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (`prerrequisito`) REFERENCES `asignaturas` (`codigo`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `caracteristicas`
+--
+
+CREATE TABLE IF NOT EXISTS `caracteristicas`(
+  `codigo` int COLLATE utf8_spanish_ci NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
+  `descripcion` varchar(300) COLLATE utf8_spanish_ci NOT NULL,
+  `tipo` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
+  `estado` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
+  `sesionesDirectas` int(6) NOT NULL,
+  `sesionesIndirectas` int(6) NOT NULL,
+  `espacio` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
+  `grupo` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
+  `medios` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
+  `producto` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
+  `evaluacion` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
   PRIMARY KEY (`codigo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
@@ -877,11 +942,24 @@ ALTER TABLE `programas`
   ADD CONSTRAINT `fk_Programa_Facultad` FOREIGN KEY (`facultad`) REFERENCES `facultades` (`codigo`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Filtros para la tabla `planes`
+--
+ALTER TABLE `planes`
+  ADD CONSTRAINT `fk_Planes_Programa` FOREIGN KEY (`programa`) REFERENCES `programas` (`codigo`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Filtros para la tabla `uocs`
 --
 ALTER TABLE `uocs`
   ADD CONSTRAINT `fk_UOC_Programa` FOREIGN KEY (`programa`) REFERENCES `programas` (`codigo`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+--
+-- Filtros para la tabla `asignaturas`
+--
+ALTER TABLE `asignaturas`
+  ADD CONSTRAINT `fk_Asignaturas_UOC` FOREIGN KEY(`uoc`) REFERENCES `uocs` (`codigo`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_Asignaturas_Plan` FOREIGN KEY(`plan`) REFERENCES `planes` (`codigo`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_Asignaturas_Programa` FOREIGN KEY(`programa`) REFERENCES `programas` (`codigo`) ON DELETE CASCADE ON UPDATE CASCADE;
 --
 -- Filtros para la tabla `usuarios`
 --

@@ -22,10 +22,27 @@ p{
 }
 
 /*---------------------------------------------- TABLES ------------------------------------------------------*/
-.table-asignatura{
+
+.list-funcionalidades{
     margin: 35px;
     overflow-x: auto;
 }
+
+.filter-planes{
+    margin: 35px;
+    overflow-x: auto;
+}
+
+.filter-asignaturas{
+    margin: 35px;
+    overflow-x: auto;
+}
+
+.div-microcurriculos{
+    margin: 35px;
+    overflow-x: auto;
+}
+
 .table td {
     text-align: center;   
  }
@@ -33,8 +50,11 @@ p{
     text-align: center;   
 }
 
+
 /*-------------------------------------------- GENERAL -------------------------------------------------------*/
 .alert{
+    margin: 35px;
+    overflow-x: auto;
     display: none;
     opacity: 1;
     -webkit-transition: opacity 1000ms linear;

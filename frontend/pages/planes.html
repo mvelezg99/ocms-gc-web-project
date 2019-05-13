@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="icon" href="../src/ocms-icon.png">
+    <title>Gestionar planes</title>
+</head>
+
+<body>
+    <!------------------------------------------------- HEADER ---------------------------------------------------->
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand" href="../index.html">
+            <img src="../src/ocms-image.png" width="" height="30" class="d-inline-block align-top" alt="">
+        </a>
+        <a class="navbar-brand" href="../index.html">
+            <div><strong>Gestión Curricular</strong></div>
+        </a>
+
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Funcionalidades
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="planes.html">Planes</a>
+                <a class="dropdown-item" href="asignaturas.html">Asignaturas</a>
+                <a class="dropdown-item" href="microcurriculos.html">Microcurrículos</a>
+            </div>
+        </div>
+    </nav>
+
+    <!------------------------------------------------- TITLE ----------------------------------------------------->
+    <p class="display-4">Gestionar planes</p>
+    <p class="lead">
+        Permite definir las diferentes versiones de los planes curriculares en los que se estructuran las asignaturas de
+        un programa, con el fin de facilitar el seguimiento de la evolución de la malla curricular de un programa
+        académico.
+    </p>
+    <hr />
+
+    <div class="filter-planes">
+        <div class="card card-body">
+            <label>
+                <h3>Filtrar planes</h3>
+            </label>
+            <hr />
+            <div class="form-row">
+                <div class="col">
+                    <label>Seleccionar facultad</label>
+                    <select class="custom-select" id="inputSelectFacultad" onchange="refreshSelectProgramaByFacultad()">
+                        <option selected></option>
+                    </select>
+                </div>
+                <div class="col">
+                    <label>Seleccionar programa</label>
+                    <select class="custom-select" id="inputSelectPrograma" disabled required>
+                        <option selected></option>
+                    </select>
+                </div>
+            </div>
+            <br>
+            <button class="btn btn-secondary btn-block" onclick="refreshTitlePlanes()">Filtrar</button>
+        </div>
+    </div>
+
+    <div class="card card-body filter-planes collapse" id="div-filter-planes">
+        <label>
+            <h4 id="title-planes">Planes de formación de: </h4>
+        </label>
+        <hr />
+
+        <!---------------------------------------------- CRUD OPTIONS ---------------------------------------------------->
+
+        <div>
+            <button class="btn btn-outline-success" id="btn-crear" onclick="newCollapse()">
+                Crear nuevo
+            </button>
+            <button class="btn btn-outline-info" id="btn-modificar" onclick="editCollapse()">
+                Modificar
+            </button>
+            <button class="btn btn-outline-danger" id="btn-eliminar" onclick="deleteCollapse()">
+                Eliminar
+            </button>
+
+            <br>
+            <br>
+            <!------------------------------------------------ CRUD FORMS ------------------------------------------------->
+
+            <!-- Formulario crear -->
+            <div class="collapse" id="collapseNew">
+                <div class="card card-body">
+                    <form autocomplete="off">
+                        <label>
+                            <h3>Nuevo plan de formación</h3>
+                        </label>
+                        <hr>
+                        <div class="form-group">
+                            <label>Identificación</label>
+                            <div class="form-row">
+                                <div class="col">
+                                    <input type="text" class="form-control form-nuevo" placeholder="Código" id="newID"
+                                        required>
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control form-nuevo" placeholder="Nombre"
+                                        id="newNombre">
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control form-nuevo" placeholder="Programa"
+                                        id="newPrograma" readonly>
+                                    <small id="programaHelpBlock" class="form-text text-muted">
+                                        Código del programa generado automáticamente.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <br>
+
+                        <div class="form-group">
+                            <label>Información general</label>
+                            <div class="form-row">
+                                <div class="col">
+                                    <input type="text" class="form-control form-nuevo" placeholder="Número de acuerdo"
+                                        id="newAcuerdo">
+                                </div>
+                                <div class="col">
+                                    <input type="number" class="form-control form-nuevo"
+                                        placeholder="Semestre de inicio" id="newSemestreInicio" min="0" max="10"
+                                        step="1">
+                                </div>
+                                <div class="col">
+                                    <input type="number" class="form-control form-nuevo"
+                                        placeholder="Semestre de vigencia" id="newSemestreVigencia" min="0" max="10"
+                                        step="1">
+                                </div>
+                            </div>
+                        </div>
+
+                        <br>
+
+                        <div class="form-group">
+                            <label>Recursos</label>
+
+                            <div class="form-row">
+                                <div class="col">
+                                    <input type="text" class="form-control form-nuevo" placeholder="URL acta"
+                                        id="newRutaActa">
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control form-nuevo" placeholder="URL imagen"
+                                        id="newRutaImagen">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <button class="btn btn-success btn-block" id="submitCrear" onclick="addPlan()">Crear</button>
+
+                </div>
+            </div>
+
+            <!-- Formulario modificar -->
+            <div class="collapse" id="collapseMod">
+                <div class="card card-body">
+                    <form autocomplete="off">
+                        <label>
+                            <h3>Modificar plan de formación</h3>
+                        </label>
+                        <hr>
+                        <div class="form-group">
+                            <label>Identificación</label>
+                            <div class="form-row">
+                                <div class="col">
+                                    <input type="text" class="form-control form-modificar" placeholder="Código"
+                                        id="editID" required>
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control form-modificar" placeholder="Nombre"
+                                        id="editNombre">
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control form-modificar" placeholder="Programa"
+                                        id="editPrograma" readonly>
+                                    <small id="programaHelpBlock" class="form-text text-muted">
+                                        Código del programa generado automáticamente.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <br>
+
+                        <div class="form-group">
+                            <label>Información general</label>
+                            <div class="form-row">
+                                <div class="col">
+                                    <input type="text" class="form-control form-modificar"
+                                        placeholder="Número de acuerdo" id="editAcuerdo">
+                                </div>
+                                <div class="col">
+                                    <input type="number" class="form-control form-modificar"
+                                        placeholder="Semestre de inicio" id="editSemestreInicio" min="0" max="10"
+                                        step="1">
+                                </div>
+                                <div class="col">
+                                    <input type="number" class="form-control form-modificar"
+                                        placeholder="Semestre de vigencia" id="editSemestreVigencia" min="0" max="10"
+                                        step="1">
+                                </div>
+                            </div>
+                        </div>
+
+                        <br>
+
+                        <div class="form-group">
+                            <label>Recursos</label>
+
+                            <div class="form-row">
+                                <div class="col">
+                                    <input type="text" class="form-control form-modificar" placeholder="URL acta"
+                                        id="editRutaActa">
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control form-modificar" placeholder="URL imagen"
+                                        id="editRutaImagen">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <button class="btn btn-info btn-block" id="submitModificar"
+                        onclick="updatePlan()">Modificar</button>
+                </div>
+            </div>
+
+            <!-- Formulario eliminar -->
+            <div class="collapse" id="collapseDel">
+                <div class="card card-body">
+                    <form autocomplete="off">
+                        <label>
+                            <h3>Eliminar plan de formación</h3>
+                        </label>
+                        <hr>
+                        <div class="form-group">
+                            <label>Identificación</label>
+                            <div class="form-row">
+                                <div class="col">
+                                    <input type="text" class="form-control form-delete" placeholder="Código"
+                                        id="deleteID">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <button class="btn btn-danger btn-block" id="submitEliminar"
+                        onclick="removePlan()">Eliminar</button>
+
+                </div>
+            </div>
+
+            <br>
+
+            <!------------------------------------------------ ALERTS ------------------------------------------------->
+
+            <div class="alert alert-success alert-dismissible fade in show" role="alert" id="alertSuccess"
+                style="opacity: 0">
+                <strong>Éxito!</strong> Operación exitosa.
+            </div>
+
+            <div class="alert alert-danger alert-dismissible fade in show" role="alert" id="alertDanger"
+                style="opacity: 0">
+                <strong>Error!</strong> Operación inválida.
+            </div>
+
+            <div class="alert alert-warning alert-dismissible fade in show" role="alert" id="alertWarning"
+                style="opacity: 0">
+                <strong>Cuidado!</strong> Debes rellenear todos los campos.
+            </div>
+
+
+            <!----------------------------------------------- PLANES TABLE --------------------------------------------------->
+
+            <div id="table-planes" class="table-responsive">
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Código</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Programa</th>
+                            <th scope="col">Número acuerdo</th>
+                            <th scope="col">Semestre inicio</th>
+                            <th scope="col">Semestre vigencia</th>
+                            <th scope="col">URL acta</th>
+                            <th scope="col">URL imagen</th>
+                            <th scope="col">Asignaturas</th>
+                            <th scope="col" colspan="2">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="planesTable"></tbody>
+                </table>
+            </div>
+        </div>
+
+
+    </div>
+
+    <!----------------------------------------------- FOOTER ------------------------------------------------------->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5">
+                    <h4><a href="https://www.udem.edu.co/" target="_blank">
+                            <img src="../src/240px-Escudo_Universidad_de_Medellin.svg.png" height="50"></a>
+                        Universidad de Medellín</h4>
+                    <address>
+                        Carrera 87 N° 30 - 65 <br>
+                        Medellín <br>
+                        Colombia <br>
+                        (57)(4)3405555
+                    </address>
+                </div>
+            </div>
+            <div class="bottom-footer">
+                <div class="col-md-5">© Copyright 2012 ® Todos los Derechos Reservados</div>
+            </div>
+        </div>
+    </footer>
+
+    <!------------------------------------------------- SCRIPTS ---------------------------------------------------->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="../scripts/planes.js"></script>
+</body>
+
+</html>

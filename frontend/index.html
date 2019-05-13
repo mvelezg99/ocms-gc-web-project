@@ -14,7 +14,7 @@
 </head>
 
 <body>
-<!------------------------------------------------- HEADER ---------------------------------------------------->
+    <!------------------------------------------------- HEADER ---------------------------------------------------->
     <nav class="navbar navbar-dark bg-dark">
         <a class="navbar-brand" href="index.html">
             <img src="./src/ocms-image.png" width="" height="30" class="d-inline-block align-top" alt="">
@@ -29,12 +29,14 @@
                 Funcionalidades
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="./pages/planes.html">Planes</a>
                 <a class="dropdown-item" href="./pages/asignaturas.html">Asignaturas</a>
+                <a class="dropdown-item" href="./pages/microcurriculos.html">Microcurrículos</a>
             </div>
         </div>
     </nav>
 
-<!------------------------------------------------- TITLE ---------------------------------------------------->
+    <!------------------------------------------------- TITLE ---------------------------------------------------->
     <p class="display-4">OCMS Gestión Curricular</p>
     <p class="lead">
         Módulo de definición y gestión de referentes curriculares, en términos de planes de formación, UOC, asignaturas
@@ -43,20 +45,32 @@
         formación.
     </p>
     <hr>
-<!------------------------------------------------- FUNCIONALIDADES ---------------------------------------------------->
+    <!------------------------------------------------- FUNCIONALIDADES ---------------------------------------------------->
     <p class="h2">Funcionalidades</p>
 
-    <p style="font-size: 20px">
-        <a href="pages/asignaturas.html"><img src="src/icon-todas-asignaturas.png" height="50"></a>
-        <a href="pages/asignaturas.html">Gestionar asignaturas</a>
-    </p>
+    <div class="list-funcionalidades" style="font-size: 18px">
+        <ul class="list-group list-group-horizontal-md">
+            <li class="list-group-item">
+                <a href="pages/planes.html"><img src="src/icon-planes.png" height="50"></a>
+                <a href="pages/planes.html">Gestionar planes</a>
+            </li>
+            <li class="list-group-item">
+                <a href="pages/asignaturas.html"><img src="src/icon-todas-asignaturas.png" height="50"></a>
+                <a href="pages/asignaturas.html">Gestionar asignaturas</a>
+            </li>
+            <li class="list-group-item">
+                <a href="pages/microcurriculos.html"><img src="src/icon-microcurriculo.png" height="50"></a>
+                <a href="pages/microcurriculos.html">Estructurar microcurrículo</a>
+            </li>
+        </ul>
+    </div>
 
-<!----------------------------------------------- FOOTER ------------------------------------------------------->
+    <!----------------------------------------------- FOOTER ------------------------------------------------------->
     <footer class="site-footer">
         <div class="container">
             <div class="row">
                 <div class="col-md-5">
-                    <h4><a href="https://www.udem.edu.co/">
+                    <h4><a href="https://www.udem.edu.co/" target="_blank">
                             <img src="./src/240px-Escudo_Universidad_de_Medellin.svg.png" height="50"></a>
                         Universidad de Medellín</h4>
                     <address>
@@ -73,7 +87,7 @@
         </div>
     </footer>
 
-<!------------------------------------------------- SCRIPTS ---------------------------------------------------->
+    <!------------------------------------------------- SCRIPTS ---------------------------------------------------->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>

@@ -13,7 +13,7 @@
 </head>
 
 <body>
-<!------------------------------------------------- HEADER ---------------------------------------------------->
+    <!------------------------------------------------- HEADER ---------------------------------------------------->
     <nav class="navbar navbar-dark bg-dark">
         <a class="navbar-brand" href="../index.html">
             <img src="../src/ocms-image.png" width="" height="30" class="d-inline-block align-top" alt="">
@@ -28,237 +28,398 @@
                 Funcionalidades
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="planes.html">Planes</a>
                 <a class="dropdown-item" href="asignaturas.html">Asignaturas</a>
+                <a class="dropdown-item" href="microcurriculos.html">Microcurrículos</a>
             </div>
         </div>
     </nav>
 
-<!------------------------------------------------- TITLE ----------------------------------------------------->
+    <!------------------------------------------------- TITLE ----------------------------------------------------->
     <p class="display-4">Gestionar asignaturas</p>
+    <p class="lead">
+        Permite definir las asignaturas que se imparten en el plan curricular de un programa, con el fin de mantener
+        actualizada la información curricular de los planes de formación de los programas.
+    </p>
     <hr>
 
-<!---------------------------------------------- CRUD OPTIONS ------------------------------------------------->
-    <div class="table-asignatura">
+    <!------------------------------------------- FILTER ASIGNATURAS ---------------------------------------------->
 
-        <button class="btn btn-outline-success" id="btn-crear" onclick="newCollapse()">
-            Crear nueva
-        </button>
-        <button class="btn btn-outline-info" id="btn-modificar" onclick="editCollapse()">
-            Modificar
-        </button>
-        <button class="btn btn-outline-danger" id="btn-eliminar" onclick="deleteCollapse()">
-            Eliminar
-        </button>
-        <br>
-        <br>
-        <div class="alert alert-success alert-dismissible fade in show" role="alert" id="alertSuccess"
-            style="opacity: 0">
-            <strong>Éxito!</strong> Operación exitosa.
-        </div>
-
-        <div class="alert alert-danger alert-dismissible fade in show" role="alert" id="alertDanger" style="opacity: 0">
-            <strong>Error!</strong> Operación inválida.
-        </div>
-
-        <div class="alert alert-warning alert-dismissible fade in show" role="alert" id="alertWarning"
-            style="opacity: 0">
-            <strong>Cuidado!</strong> Debes rellenear todos los campos.
-        </div>
-
-<!------------------------------------------------ CRUD FORMS ------------------------------------------------->        </p>
-        <!-- Formulario creación -->
-        <div class="collapse" id="collapseNew">
-            <div class="card card-body">
-                <form autocomplete="off">
-                    <label>
-                        <h3>Nueva asignatura</h3>
-                    </label>
-                    <hr>
-                    <div class="form-group">
-                        <label>Identificación</label>
-                    </div>
-                    <div class="form-row">
-                        <div class="col">
-                            <input type="text" class="form-control" placeholder="Código" id="inputID" required>
-                        </div>
-                        <div class="col">
-                            <input type="text" class="form-control" placeholder="Nombre" id="inputNombre" required>
-                        </div>
-                    </div>
-                    <br>
-
-                    <div class="form-group">
-                        <label>Información general</label>
-                    </div>
-                    <div class="form-row">
-                        <div class="col">
-                            <input type="number" class="form-control" placeholder="Número créditos" id="inputCreditos"
-                                min="0" step="1" required>
-                        </div>
-                        <div class="col">
-                            <input type="number" class="form-control" placeholder="Nivel" id="inputNivel" min="0"
-                                max="10" step="1" required>
-                        </div>
-                        <div class="col">
-                            <input type="text" class="form-control" placeholder="Tipo" id="inputTipo" required>
-                        </div>
-                    </div>
-                    <br>
-
-                    <div class="form-group">
-                        <label>Intensidad</label>
-                    </div>
-                    <div class="form-row">
-                        <div class="col">
-                            <input type="number" class="form-control" placeholder="Horas directas" id="inputHorasD"
-                                min="0" step="1" required>
-                        </div>
-                        <div class="col">
-                            <input type="number" class="form-control" placeholder="Horas independientes"
-                                id="inputHorasI" min="0" step="1" required>
-                        </div>
-                    </div>
-
-                    <br>
-                    <div class="form-group">
-                        <label>Descripción</label>
-                        <textarea class="form-control" id="inputDescripcion" required></textarea>
-                    </div>
-
+    <div class="filter-asignaturas">
+        <div class="card card-body">
+            <label>
+                <h3>Filtrar asignaturas</h3>
+            </label>
+            <hr>
+            <div class="form-row">
+                <div class="col">
+                    <label>Seleccionar facultad</label>
+                    <select class="custom-select" id="inputSelectFacultad">
+                        <option selected></option>
+                    </select>
+                </div>
+                <div class="col">
+                    <label>Seleccionar programa</label>
+                    <select class="custom-select" id="inputSelectPrograma" disabled required>
+                        <option selected></option>
+                    </select>
+                </div>
+                <div class="col">
+                    <label>Seleccionar plan</label>
+                    <select class="custom-select" id="inputSelectPlan" disabled required>
+                        <option selected></option>
+                    </select>
+                </div>
             </div>
-            <!-- /Formulario creación -->
-            
-            </form>
-            <button class="btn btn-success btn-block" id="submitCrear" onclick="addAsignatura()">Crear</button>
-            
+            <br>
+            <button class="btn btn-secondary btn-block" id="btnFilterAsignaturas">Filtrar</button>
         </div>
 
-        <!-- Formulario modificar -->
-        <div class="collapse" id="collapseMod">
-            <div class="card card-body">
-                <form autocomplete="off">
-                    <label>
-                        <h3>Modificar asignatura</h3>
-                    </label>
-                    <hr>
-                    <div class="form-group">
-                        <label>Identificación</label>
-                    </div>
-                    <div class="form-row">
-                        <div class="col">
-                            <input type="text" class="form-control" placeholder="Código" id="editID" required>
-                        </div>
-                        <div class="col">
-                            <input type="text" class="form-control" placeholder="Nombre" id="editNombre" required>
-                        </div>
-                    </div>
-                    <br>
-
-                    <div class="form-group">
-                        <label>Información general</label>
-                    </div>
-                    <div class="form-row">
-                        <div class="col">
-                            <input type="number" class="form-control" placeholder="Número créditos" id="editCreditos"
-                                min="0" step="1" required>
-                        </div>
-                        <div class="col">
-                            <input type="number" class="form-control" placeholder="Nivel" id="editNivel" min="0"
-                                max="10" step="1" required>
-                        </div>
-                        <div class="col">
-                            <input type="text" class="form-control" placeholder="Tipo" id="editTipo" required>
-                        </div>
-                    </div>
-                    <br>
-
-                    <div class="form-group">
-                        <label>Intensidad</label>
-                    </div>
-                    <div class="form-row">
-                        <div class="col">
-                            <input type="number" class="form-control" placeholder="Horas directas" id="editHorasD"
-                                min="0" step="1" required>
-                        </div>
-                        <div class="col">
-                            <input type="number" class="form-control" placeholder="Horas independientes" id="editHorasI"
-                                min="0" step="1" required>
-                        </div>
-                    </div>
-
-                    <br>
-                    <div class="form-group">
-                        <label>Descripción</label>
-                        <textarea class="form-control" id="editDescripcion" required></textarea>
-                    </div>
-            </div>
-            <!-- /Formulario modificar -->
-            
-            </form>
-            <button class="btn btn-info btn-block" id="submitModificar" onclick="updateAsignatura()">Modificar</button>
-            
-
-        </div>
-
-        <!-- Formulario eliminar -->
-        <div class="collapse" id="collapseDel">
-            <div class="card card-body">
-                <form autocomplete="off">
-                    <label>
-                        <h3>Eliminar Asignatura</h3>
-                    </label>
-                    <hr>
-                    <div class="form-group">
-                        <label>Identificación</label>
-                    </div>
-                    <div class="form-row">
-                        <div class="col">
-                            <input type="text" class="form-control" placeholder="Código" id="deleteID" required>
-                        </div>
-                    </div>
-
-            </div>
-            </form>
-            <button class="btn btn-danger btn-block" id="submitEliminar"
-                onclick="removeAsignatura(document.getElementById('deleteID').value)">Eliminar</button>
-            
-        </div>
-
-        <!-- /Formulario eliminar -->
     </div>
 
-<!--------------------------------------------- ASIGNATURAS TABLE --------------------------------------------->
-    <div id="asignaturasList"></div>
-
-    <!-- Tabla asignaturas -->
-    <div class="table-asignatura">
-        <table class="table">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">Código</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Créditos</th>
-                    <th scope="col">Nivel</th>
-                    <th scope="col">Tipo</th>
-                    <th scope="col">Horas directas</th>
-                    <th scope="col">Horas independientes</th>
-                    <th scope="col">Descripcion</th>
-                    <th scope="col">Acciones</th>
-                </tr>
-            </thead>
-            <tbody id="asignaturasTable">
-            </tbody>
-        </table>
     </div>
-    <!-- /Tabla asignaturas -->
+
+    <div class="card card-body filter-asignaturas collapse" id="div-filter-asignaturas">
+        <label>
+            <h4 id="title-asignaturas">Asignaturas de: </h4>
+        </label>
+        <hr>
+
+        <!---------------------------------------------- CRUD OPTIONS ------------------------------------------------->
+
+        <div>
+            <button class="btn btn-outline-success" id="btn-crear" onclick="newCollapse()">
+                Crear nueva
+            </button>
+            <button class="btn btn-outline-info" id="btn-modificar" onclick="editCollapse()">
+                Modificar
+            </button>
+            <button class="btn btn-outline-danger" id="btn-eliminar" onclick="deleteCollapse()">
+                Eliminar
+            </button> |
+            <button class="btn btn-secondary" id="btn-prerrequisitos" onclick="preCollapse()">
+                Prerrequisitos
+            </button>
+
+            <br>
+            <br>
+            <!------------------------------------------------ CRUD FORMS ------------------------------------------------->
+            <!-- Formulario crear -->
+            <div class="collapse" id="collapseNew">
+                <div class="card card-body">
+                    <form autocomplete="off">
+                        <label>
+                            <h3>Nueva asignatura</h3>
+                        </label>
+                        <hr>
+                        <div class="form-group">
+                            <label>Identificación</label>
+                            <div class="form-row">
+                                <div class="col">
+                                    <input type="text" class="form-control form-nuevo" placeholder="Código" id="newID">
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control form-nuevo" placeholder="Nombre"
+                                        id="newNombre">
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control form-nuevo" placeholder="Plan" id="newPlan"
+                                        readonly>
+                                    <small id="planHelpBlock" class="form-text text-muted">
+                                        Código del plan generado automáticamente.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>UOC</label>
+                            <div class="form-row">
+                                <div class="col">
+                                    <input type="text" class="form-control form-nuevo" placeholder="Programa"
+                                        id="newPrograma" readonly>
+                                    <small id="planHelpBlock" class="form-text text-muted">
+                                        Código del programa generado automáticamente.
+                                    </small>
+                                </div>
+                                <div class="col">
+                                    <select class="custom-select form-nuevo" id="selectNewUOC">
+                                        <option selected>Seleccionar UOC</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Información general</label>
+                            <div class="form-row">
+                                <div class="col">
+                                    <input type="number" id="newCreditos" class="form-control form-nuevo"
+                                        placeholder="Número de créditos">
+                                </div>
+                                <div class="col">
+                                    <input type="number" id="newNivel" class="form-control form-nuevo"
+                                        placeholder="Nivel" min="0" max="10" step="1">
+                                </div>
+                                <div class="col">
+                                    <select id="newTipo" class="form-nuevo form-control">
+                                        <option value="" selected disabled>Seleccionar tipo</option>
+                                        <option value="General">General</option>
+                                        <option value="Común (CBI)">Común (CBI)</option>
+                                        <option value="Específica">Específica</option>
+                                        <option value="Libre elección">Libre elección</option>
+                                        <option value="Línea de énfasis">Línea de énfasis</option>
+                                        <option value="Trabajo de grado">Trabajo de grado</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Intensidad</label>
+                            <div class="form-row">
+                                <div class="col">
+                                    <input type="number" id="newHorasDirectas" class="form-control form-nuevo"
+                                        placeholder="Horas directas">
+                                </div>
+                                <div class="col">
+                                    <input type="number" id="newHorasIndependientes" class="form-control form-nuevo"
+                                        placeholder="Horas independientes">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Descripción</label>
+                            <div class="form-row">
+                                <div class="col">
+                                    <textarea type="text" id="newDescripcion"
+                                        class="form-control form-nuevo"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <button class="btn btn-success btn-block" id="submitCrear" onclick="addAsignatura()">Crear</button>
+                </div>
+            </div>
+
+            <!-- Formulario modificar -->
+            <div class="collapse" id="collapseMod">
+                <div class="card card-body">
+                    <form autocomplete="off">
+                        <label>
+                            <h3>Modificar asignatura</h3>
+                        </label>
+                        <hr>
+                        <div class="form-group">
+                            <label>Identificación</label>
+                            <div class="form-row">
+                                <div class="col">
+                                    <input type="text" class="form-control form-modificar" placeholder="Código"
+                                        id="editID">
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control form-modificar" placeholder="Nombre"
+                                        id="editNombre">
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control form-modificar" placeholder="Plan"
+                                        id="editPlan" readonly>
+                                    <small id="planHelpBlock" class="form-text text-muted">
+                                        Código del plan generado automáticamente.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>UOC</label>
+                            <div class="form-row">
+                                <div class="col">
+                                    <input type="text" class="form-control form-modificar" placeholder="Programa"
+                                        id="editPrograma" readonly>
+                                    <small id="planHelpBlock" class="form-text text-muted">
+                                        Código del programa generado automáticamente.
+                                    </small>
+                                </div>
+                                <div class="col">
+                                    <select class="custom-select form-modificar" id="selectEditUOC">
+                                        <option selected>Seleccionar UOC</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Información general</label>
+                            <div class="form-row">
+                                <div class="col">
+                                    <input type="number" id="editCreditos" class="form-control form-modificar"
+                                        placeholder="Número de créditos">
+                                </div>
+                                <div class="col">
+                                    <input type="number" id="editNivel" class="form-control form-modificar"
+                                        placeholder="Nivel" min="0" max="10" step="1">
+                                </div>
+                                <div class="col">
+                                    <select id="editTipo" class="form-modificar form-control">
+                                        <option value="" selected disabled>Seleccionar tipo</option>
+                                        <option value="General">General</option>
+                                        <option value="Común (CBI)">Común (CBI)</option>
+                                        <option value="Específica">Específica</option>
+                                        <option value="Libre elección">Libre elección</option>
+                                        <option value="Línea de énfasis">Línea de énfasis</option>
+                                        <option value="Trabajo de grado">Trabajo de grado</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Intensidad</label>
+                            <div class="form-row">
+                                <div class="col">
+                                    <input type="number" id="editHorasDirectas" class="form-control form-modificar"
+                                        placeholder="Horas directas">
+                                </div>
+                                <div class="col">
+                                    <input type="number" id="editHorasIndependientes"
+                                        class="form-control form-modificar" placeholder="Horas independientes">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Descripción</label>
+                            <div class="form-row">
+                                <div class="col">
+                                    <textarea type="text" id="editDescripcion"
+                                        class="form-control form-modificar"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <button class="btn btn-info btn-block" id="submitModificar"
+                        onclick="updateAsignatura()">Modificar</button>
+                </div>
+            </div>
+
+            <!-- Formulario eliminar -->
+            <div class="collapse" id="collapseDel">
+                <div class="card card-body">
+                    <form autocomplete="off">
+                        <label>
+                            <h3>Eliminar asignatura</h3>
+                        </label>
+                        <hr>
+                        <div class="form-group">
+                            <label>Identificación</label>
+                            <div class="form-row">
+                                <div class="col">
+                                    <input type="text" class="form-control form-delete" placeholder="Código"
+                                        id="deleteID">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <button class="btn btn-danger btn-block" id="submitEliminar"
+                        onclick="removeAsignatura()">Eliminar</button>
+
+                </div>
+            </div>
+
+            <!-- Formulario prerrequisitos -->
+            <div class="collapse" id="collapsePre">
+                <div class="card card-body">
+                    <label>
+                        <h3>Gestionar prerrequisitos</h3>
+                    </label>
+                    <hr>
+                    <div class="form-group">
+                        <label>Asignatura</label>
+                        <div class="form-row">
+                            <div class="col">
+                                <select class="custom-select" id="selectPreAsignatura">
+                                    <option selected>Seleccionar asignatura</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="collapse" id="collapsePrerrequisitos">
+                        <label>
+                            <h5 id="title-prerrequisitos">Prerrequisitos de: </h5>
+                        </label>
+                        <div>
+                            <div class="form-row">
+                                <div class="col">
+                                    <select class="custom-select" id="selectPrerrequisitos">
+                                        <option selected>Seleccionar prerrequisitos</option>
+                                    </select>
+                                </div class="form-group">
+                                <div class="col">
+                                    <button class="btn btn-success btn-block" id="addPrerrequisitos">Agregar</button>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="form-row">
+                                <div class="col">
+                                    <ul class="list-group" id="listPrerrequisitos">
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!------------------------------------------------ ALERTS ------------------------------------------------->
+
+            <div class="alert alert-success alert-dismissible fade in show" role="alert" id="alertSuccess"
+                style="opacity: 0">
+                <strong>Éxito!</strong> Operación exitosa.
+            </div>
+
+            <div class="alert alert-danger alert-dismissible fade in show" role="alert" id="alertDanger"
+                style="opacity: 0">
+                <strong>Error!</strong> Operación inválida.
+            </div>
+
+            <div class="alert alert-warning alert-dismissible fade in show" role="alert" id="alertWarning"
+                style="opacity: 0">
+                <strong>Cuidado!</strong> Debes rellenear todos los campos.
+            </div>
 
 
-<!------------------------------------------------- FOOTER ----------------------------------------------------->
+            <!--------------------------------------------- ASIGNATURAS TABLE --------------------------------------------->
+
+            <div id="table-asignaturas" class="table-responsive">
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Programa</th>
+                            <th scope="col">UOC</th>
+                            <th scope="col">Plan</th>
+                            <th scope="col">Código</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Créditos</th>
+                            <th scope="col">Nivel</th>
+                            <th scope="col">Tipo</th>
+                            <th scope="col">Horas directas</th>
+                            <th scope="col">Horas independientes</th>
+                            <th scope="col">Descripción</th>
+                            <th scope="col">Prerrequisitos</th>
+                            <th scope="col">Microcurriculo</th>
+                            <th scope="col" colspan="2">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="asignaturasTable"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!------------------------------------------------- FOOTER ----------------------------------------------------->
     <footer class="site-footer">
         <div class="container">
             <div class="row">
                 <div class="col-md-5">
-                    <h4><a href="https://www.udem.edu.co/">
+                    <h4><a href="https://www.udem.edu.co/" target="_blank">
                             <img src="../src/240px-Escudo_Universidad_de_Medellin.svg.png" height="50"></a>
                         Universidad de Medellín</h4>
                     <address>
@@ -275,7 +436,7 @@
         </div>
     </footer>
 
-<!------------------------------------------------- SCRIPTS ---------------------------------------------------->
+    <!------------------------------------------------- SCRIPTS ---------------------------------------------------->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
