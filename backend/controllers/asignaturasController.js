@@ -8,7 +8,7 @@ const controller = {}
 
 controller.selectAll = (req, res) => {
     let query = 'SELECT * FROM asignaturas'
-    
+
     connection.query(query, (error, result) => {
         if (!error) {
             if (result.length) {
@@ -42,6 +42,23 @@ controller.selectAllByProgramaByPlan = (req, res) => {
 
 controller.selectOneByProgramaByPlan = (req, res) => {
     let query = `SELECT * FROM asignaturas WHERE programa = '${req.params.codigoPrograma}' AND plan = '${req.params.codigoPlan}' AND codigo = '${req.params.codigoAsignatura}'`
+
+    connection.query(query, (error, result) => {
+        if (!error) {
+            if (result.length) {
+                res.status(200).send(result)
+            } else {
+                res.status(404).send({ error: "Not found" })
+            }
+
+        } else {
+            res.status(400).send({ error: error })
+        }
+    })
+}
+
+controller.selectAllByUOC = (req, res) => {
+    let query = `SELECT * FROM asignaturas WHERE uoc = '${req.params.codigoUOC}'`
 
     connection.query(query, (error, result) => {
         if (!error) {

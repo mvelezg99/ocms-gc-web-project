@@ -144,6 +144,54 @@ CREATE TABLE IF NOT EXISTS `asignaturas` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `docentes`
+--
+
+CREATE TABLE IF NOT EXISTS `docentes` (
+  `uoc` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
+  `codigo` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
+  `nombre` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
+  `correo` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
+  `telefono` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
+  PRIMARY KEY (`codigo`),
+  FOREIGN KEY (`uoc`) REFERENCES `uocs` (`codigo`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `microcurriculo`
+--
+
+CREATE TABLE IF NOT EXISTS `microcurriculos` (
+  `asignatura` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
+  `codigo` int COLLATE utf8_spanish_ci NOT NULL AUTO_INCREMENT,
+  `version` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
+  `estado` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
+  PRIMARY KEY (`codigo`),
+  FOREIGN KEY (`asignatura`) REFERENCES `asignaturas` (`codigo`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `participaciones`
+--
+
+CREATE TABLE IF NOT EXISTS `participaciones` (
+  `participante` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
+  `codigo` int COLLATE utf8_spanish_ci NOT NULL AUTO_INCREMENT,
+  `tipo` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
+  `estado` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
+  `fecha` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
+  `observaciones` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
+  PRIMARY KEY (`codigo`),
+  FOREIGN KEY (`participante`) REFERENCES `docentes` (`codigo`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `asignaturasPrerrequisitos`
 --
 
@@ -910,7 +958,7 @@ ALTER TABLE `listas`
 -- Filtros para la tabla `notificaciones`
 --
 ALTER TABLE `notificaciones`
-  ADD CONSTRAINT `fk_Notificacion_Usuario` FOREIGN KEY (`usuario`) REFERENCES `usuarios` (`identificacion`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_Notificacion_Usuario` FOREIGN KEY (`usuario`) REFERENCES `docentes` (`codigo`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `opciones`

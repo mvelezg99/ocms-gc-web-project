@@ -26,6 +26,10 @@ router.use('/', require('./planes'))
 router.use('/', require('./uocs'))
 router.use('/', require('./prerrequisitos'))
 router.use('/', require('./caracteristicas'))
+router.use('/', require('./docentes'))
+router.use('/', require('./microcurriculos'))
+router.use('/', require('./participaciones'))
+router.use('/', require('./notificaciones'))
 
 //----------------------------------------------------------------------------------------------------------//
 

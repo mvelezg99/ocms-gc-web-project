@@ -210,7 +210,6 @@ async function refreshTableAsignaturas() {
             row += `<td>${element.horasIndependientes}</td>`
             row += `<td>${element.descripcion}</td>`
             row += `<td><button type="button" class="btn btn-secondary" onclick="preClick()">Prerrequisitos</button></td>`
-            row += `<td><a href="microcurriculos.html" class="btn btn-warning">Microcurriculo</td>`
             row += `<td><button type="button" class="btn btn-info" onclick="editAsignatura('${element.codigo}')">Modificar</button></td>`
             row += `<td><button type="button" class="btn btn-danger" onclick="eliminateAsignatura('${element.codigo}')">Eliminar</button></td>`
             row += '</tr>'

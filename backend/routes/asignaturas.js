@@ -29,6 +29,8 @@ router.get('/asignaturas/programa/:codigoPrograma/plan/:codigoPlan', controller.
 
 router.get('/asignaturas/programa/:codigoPrograma/plan/:codigoPlan/asignatura/:codigoAsignatura', controller.selectOneByProgramaByPlan)
 
+router.get('/asignaturas/uoc/:codigoUOC', controller.selectAllByUOC)
+
 //----------------------------------------------------------------------------------------------------------//
 
 module.exports = router
