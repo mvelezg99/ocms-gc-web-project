@@ -160,7 +160,7 @@ CREATE TABLE IF NOT EXISTS `docentes` (
 -- --------------------------------------------------------
 
 --
--- Volcado de datos para la tabla `modulos`
+-- Volcado de datos para la tabla `docentes`
 --
 
 INSERT INTO `docentes` (`uoc`, `codigo`, `nombre`, `correo`, `telefono`) VALUES
