@@ -390,9 +390,9 @@ INSERT INTO `modulos` (`codigo`, `nombre`, `icono`, `referencia`, `contenido`, `
 
 CREATE TABLE IF NOT EXISTS `notificaciones` (
   `usuario` varchar(30) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `evento` int(30) NOT NULL,
+  `evento` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
   `codigo` int(30) NOT NULL AUTO_INCREMENT,
-  `fecha` date NOT NULL,
+  `fecha` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
   `titulo` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
   `cuerpo` varchar(300) COLLATE utf8_spanish_ci NOT NULL,
   `tipo` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
