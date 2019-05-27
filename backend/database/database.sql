@@ -160,6 +160,17 @@ CREATE TABLE IF NOT EXISTS `docentes` (
 -- --------------------------------------------------------
 
 --
+-- Volcado de datos para la tabla `modulos`
+--
+
+INSERT INTO `docentes` (`uoc`, `codigo`, `nombre`, `correo`, `telefono`) VALUES
+('AP', '1121314', 'DOCENTE23', 'docente23@gmail.com', '3131313'),
+('AC', '1125319', 'DOCENTE_AC', 'docenteac@gmail.com', '32134213'),
+('IS', '1134523', 'BELL MANRIQUE', 'bmanrique@udem.edu.co', '34432412');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `microcurriculo`
 --
 
